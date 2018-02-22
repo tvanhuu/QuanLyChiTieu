@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">QuanLyChiTieu</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="title_toobar">Quản Lý Thu Chi</string>
+    <string name="content">content</string>
+    <string name="hint_txt_ghi_chu">Ghi chú</string>
+    <string name="text_btn_xong">Xong</string>
+    <string name="text_btn_huy">Hủy</string>
+    <string name="text_btn_ghi">Ghi</string>
+    <string name="text_btn_themhinhanh">Thêm hình ảnh</string>
+    <string name="txt_ngaythang">Ngày tháng</string>
+    <string name="txt_ghi_chu">Ghi Chú</string>
+    <string name="txt_mucchi">Mục Chi</string>
+    <string name="txt_loai">Loại</string>
+    <string name="hint_so_tien">Số tiền</string>
+
+    <string-array name="chonloai">
+        <item>Thu</item>
+        <item>Chi</item>
+    </string-array>
+</resources>

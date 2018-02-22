@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_thu"
+            android:icon="@drawable/ic_thu"
+            android:title="Khoản Thu" />
+        <item
+            android:id="@+id/nav_chi"
+            android:icon="@drawable/ic_chi"
+            android:title="Khoản Chi" />
+        <item
+            android:id="@+id/nav_thongke"
+            android:icon="@drawable/ic_total"
+            android:title="Thống Kê" />
+    </group>
+
+        <item android:title="SUB">
+            <menu>
+                <item
+                    android:id="@+id/nav_gioithieu"
+                    android:icon="@drawable/ic_infor"
+                    android:title="Thông Tin" />
+                <item
+                    android:id="@+id/nav_thoat"
+                    android:icon="@drawable/ic_exit_app"
+                    android:title="Thoát" />
+            </menu>
+        </item>
+</menu>
