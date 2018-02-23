@@ -1,2 +1,2 @@
 # QuanLyChiTieu
-Quan Ly Chi Tieu
+# comming soon

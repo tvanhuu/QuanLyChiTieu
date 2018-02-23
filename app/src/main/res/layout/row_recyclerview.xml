@@ -4,14 +4,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="5dp"
-    android:layout_marginEnd="5dp"
-    android:layout_marginTop="5dp"
+    android:layout_marginStart="@dimen/margin_5dp"
+    android:layout_marginEnd="@dimen/margin_5dp"
+    android:layout_marginTop="@dimen/margin_5dp"
     card_view:cardCornerRadius="2dp"
     card_view:cardElevation="4dp"
-    card_view:cardBackgroundColor='#FFFF'>
+    card_view:cardBackgroundColor='@color/white'>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="3dp"

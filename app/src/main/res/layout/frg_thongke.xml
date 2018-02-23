@@ -3,15 +3,124 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/padding_medium"
     android:orientation="vertical"
-    android:padding="@dimen/padding_large"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fragment Chi tiet"
-        android:textColor="#000"
-        android:textSize="30sp"
-        android:layout_gravity="center"/>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="2dp"
+        app:cardBackgroundColor="@color/white">
+
+        <!--hom nay -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_iconThongke"
+                android:layout_width="72dp"
+                android:layout_height="match_parent"
+                android:padding="@dimen/padding_tiny_plus_one"
+                android:src="@drawable/logo_user"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#c6c6c6"
+                android:layout_alignParentStart="true" />
+
+            <!--hom nay -->
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txt_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hôm nay"
+                android:layout_toEndOf="@id/img_iconThongke"
+                android:layout_alignParentTop="true"
+                style="@style/textstyle"
+                android:textSize="14sp"/>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txt_1day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(05/12/2018)"
+                android:layout_toEndOf="@id/txt_1"
+                android:layout_alignParentTop="true"
+                style="@style/textstyle"
+                android:textSize="14sp"/>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txt_titlethu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thu: "
+                android:layout_below="@id/txt_1"
+                android:layout_toEndOf="@id/img_iconThongke"
+                style="@style/textstyle"
+                android:textColor="#04ace9"
+                android:textSize="14sp"/>
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txt_thuhomnay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@id/txt_vnd"
+                android:text="100000"
+                android:layout_below="@id/txt_1day"
+                style="@style/textstyle"
+                android:gravity="end"
+                android:textColor="#04ace9"/>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txt_vnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="VND"
+                android:layout_below="@id/txt_1day"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                style="@style/textstyle"
+                android:gravity="end"
+                android:textColor="#04ace9"/>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txt_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chi: "
+                android:layout_below="@id/txt_titlethu"
+                android:layout_toEndOf="@id/img_iconThongke"
+                style="@style/textstyle"
+                android:layout_marginTop="5dp"
+                android:textColor="#04ace9"/>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txt_chihomnay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20000"
+                android:layout_below="@id/txt_thuhomnay"
+                android:layout_toStartOf="@id/txt_vnd1"
+                style="@style/textstyle"
+                android:gravity="end"
+                android:textColor="#04ace9"/>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txt_vnd1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="VND"
+                android:layout_below="@id/txt_vnd"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                style="@style/textstyle"
+                android:gravity="end"
+                android:textColor="#04ace9"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
 </LinearLayout>
