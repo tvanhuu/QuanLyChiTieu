@@ -131,18 +131,10 @@ public class KhoanChiFragment extends Fragment {
                             }).show();
                     adapterItemView.removeItem(position);
                 } else {
-                    // edit object
-//                    removeView();
-//                    edit_position = position;
-                    adapterItemView.updateList(datas);
-                    Toast.makeText(getContext(), "Comming Soon", Toast.LENGTH_LONG).show();
+                    ((MainActivity) getActivity()).nextFragment(new AddFragment());
+//                    adapterItemView.updateList(datas);
                 }
             }
-//            private void removeView(){
-//                if(view.getParent()!=null) {
-//                    ((ViewGroup) view.getParent()).removeView(view);
-//                }
-//            }
 
             @Override
             public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {

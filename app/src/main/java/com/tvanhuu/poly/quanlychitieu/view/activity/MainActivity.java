@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         drawerToggle.syncState();
         drawerLayout.addDrawerListener(drawerToggle);
         setupDrawerContent(nNavigation);
-        nextFragment(new ThongKeFragment());
+        nextFragment(new AddFragment());
     }
 
     private void onAttach() {

@@ -19,7 +19,6 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 
 import com.tvanhuu.poly.quanlychitieu.R;
@@ -131,7 +130,7 @@ public class KhoanThuFragment extends Fragment {
                 final int position = viewHolder.getAdapterPosition();
 
                 if (direction == ItemTouchHelper.LEFT){
-                    final Loai khoanChi = new Loai(datas.get(position).getTen(),
+                    final Loai khoanThu = new Loai(datas.get(position).getTen(),
                             datas.get(position).getGhiChu(),
                             datas.get(position).getLoai(),
                             datas.get(position).getImages(),
@@ -142,23 +141,20 @@ public class KhoanThuFragment extends Fragment {
                             .setAction("UNDO", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    adapterItemView.addItem(position, khoanChi);
+                                    adapterItemView.addItem(position, khoanThu);
                                 }
                             }).show();
                     adapterItemView.removeItem(position);
                 } else {
-                    // edit object
-//                    removeView();
-//                    edit_position = position;
-                    adapterItemView.updateList(datas);
-                    Toast.makeText(getContext(), "Comming Soon", Toast.LENGTH_LONG).show();
+                    final Loai l = new Loai(datas.get(position).getTen(),
+                            datas.get(position).getGhiChu(),
+                            datas.get(position).getLoai(),
+                            datas.get(position).getImages(),
+                            datas.get(position).getSoTien(),
+                            datas.get(position).getNgayThang());
+                    ((MainActivity) getActivity()).nextFragment(new AddFragment());
                 }
             }
-//            private void removeView(){
-//                if(view.getParent()!=null) {
-//                    ((ViewGroup) view.getParent()).removeView(view);
-//                }
-//            }
 
             @Override
             public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
