@@ -39,7 +39,7 @@ import java.util.List;
 
 public class KhoanThuFragment extends Fragment {
 
-    private RecyclerView recyclerView;
+    private RecyclerView rcvKhoanThu;
     private FloatingActionButton fab;
     private AdapterItemView adapterItemView;
     private List<Loai> datas;
@@ -77,18 +77,7 @@ public class KhoanThuFragment extends Fragment {
             Date date5 = simpleDateFormat.parse(dateInString5);
             Date date6 = simpleDateFormat.parse(dateInString6);
             datas = new ArrayList<>();
-            datas.add(new Loai("Lương", "Lương tháng 7","Thu", R.drawable.logo_user,30, date ));
-            datas.add(new Loai("Tiền thưởng", "Thưởng tăng ca tháng 7","Thu", R.drawable.logo_user,30, date ));
-            datas.add(new Loai("Lương", "Lương tháng 8","Thu", R.drawable.logo_user,30, date1 ));
-            datas.add(new Loai("Tiền thưởng", "Thưởng tăng ca tháng 8","Thu", R.drawable.logo_user,30, date1 ));
-            datas.add(new Loai("Lương", "Lương tháng 9","Thu", R.drawable.logo_user,30, date2 ));
-            datas.add(new Loai("Tiền thưởng", "Thưởng tăng ca tháng 9","Thu", R.drawable.logo_user,30, date2 ));
-            datas.add(new Loai("Lương", "Lương tháng 10","Thu", R.drawable.logo_user,30, date3 ));
-            datas.add(new Loai("Lương", "Lương tháng 11","Thu", R.drawable.logo_user,30, date4 ));
-            datas.add(new Loai("Lương", "Lương tháng 12","Thu", R.drawable.logo_user,30, date5 ));
-            datas.add(new Loai("Lương", "Lương tháng 1","Thu", R.drawable.logo_user,30, date6 ));
-            datas.add(new Loai("Tiền thưởng", "Thưởng tăng ca tháng 12","Thu", R.drawable.logo_user,30, date6 ));
-
+            datas.add(new Loai("Lương", "Lương tháng 7","Thu",30, date ));
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -99,11 +88,11 @@ public class KhoanThuFragment extends Fragment {
     private void initView(View view) {
         coordinatorLayout = view.findViewById(R.id.CoordinatorLayout);
         fab = view.findViewById(R.id.fab_thu);
-        recyclerView = view.findViewById(R.id.rcv_khoanthu);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        rcvKhoanThu = view.findViewById(R.id.rcv_khoanthu);
+        rcvKhoanThu.setHasFixedSize(true);
+        rcvKhoanThu.setLayoutManager(new LinearLayoutManager(getContext()));
         adapterItemView = new AdapterItemView(datas);
-        recyclerView.setAdapter(adapterItemView);
+        rcvKhoanThu.setAdapter(adapterItemView);
         initSwipe();
     }
 
@@ -130,10 +119,10 @@ public class KhoanThuFragment extends Fragment {
                 final int position = viewHolder.getAdapterPosition();
 
                 if (direction == ItemTouchHelper.LEFT){
-                    final Loai khoanThu = new Loai(datas.get(position).getTen(),
+                    final Loai khoanThu = new Loai(
+                            datas.get(position).getTen(),
                             datas.get(position).getGhiChu(),
                             datas.get(position).getLoai(),
-                            datas.get(position).getImages(),
                             datas.get(position).getSoTien(),
                             datas.get(position).getNgayThang());
                     Snackbar.make(coordinatorLayout, "You are Delete!", 3000)
@@ -146,12 +135,12 @@ public class KhoanThuFragment extends Fragment {
                             }).show();
                     adapterItemView.removeItem(position);
                 } else {
-                    final Loai l = new Loai(datas.get(position).getTen(),
-                            datas.get(position).getGhiChu(),
-                            datas.get(position).getLoai(),
-                            datas.get(position).getImages(),
-                            datas.get(position).getSoTien(),
-                            datas.get(position).getNgayThang());
+                    // truyen dl sang ban add fragment show len view
+//                    final Loai l = new Loai(datas.get(position).getTen(),
+//                            datas.get(position).getGhiChu(),
+//                            datas.get(position).getLoai(),
+//                            datas.get(position).getSoTien(),
+//                            datas.get(position).getNgayThang());
                     ((MainActivity) getActivity()).nextFragment(new AddFragment());
                 }
             }
@@ -186,6 +175,6 @@ public class KhoanThuFragment extends Fragment {
             }
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-        itemTouchHelper.attachToRecyclerView(recyclerView);
+        itemTouchHelper.attachToRecyclerView(rcvKhoanThu);
     }
 }

@@ -19,7 +19,6 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.tvanhuu.poly.quanlychitieu.R;
 import com.tvanhuu.poly.quanlychitieu.model.Loai;
@@ -66,16 +65,8 @@ public class KhoanChiFragment extends Fragment {
         try {
             Date date = simpleDateFormat.parse(dateInString);
             datas = new ArrayList<>();
-            datas.add(new Loai("Cafe", "Cafe buoi sang","Chi", R.drawable.logo_user,30, date ));
-            datas.add(new Loai("Tiền điện", "Tiền điện tháng 1","Chi", R.drawable.logo_user,30, date ));
-            datas.add(new Loai("Tiền nước", "Tiền nước tháng 1","Chi", R.drawable.logo_user,30, date ));
-            datas.add(new Loai("Tiền đá phò", "Tuần này đá phò","Chi", R.drawable.logo_user,30, date ));
-            datas.add(new Loai("Ăn sáng", "Ăn sáng nay","Chi", R.drawable.logo_user,30, date ));
-            datas.add(new Loai("Đổ xăng", "Đổ xăng","Chi", R.drawable.logo_user,30, date ));
-            datas.add(new Loai("Thẻ điện thoại", "Cafe buoi sang","Chi", R.drawable.logo_user,30, date ));
-            datas.add(new Loai("Tiền mua bỉm", "Cafe buoi sang","Chi", R.drawable.logo_user,30, date ));
-            datas.add(new Loai("Tiền đi chợ", "Cafe buoi sang","Chi", R.drawable.logo_user,30, date ));
-            datas.add(new Loai("Tiền mua 3 con sói", "Cafe buoi sang","Chi", R.drawable.logo_user,30, date ));
+            datas.add(new Loai("Cafe", "Cafe buoi sang","Chi",30, date ));
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -115,10 +106,10 @@ public class KhoanChiFragment extends Fragment {
                 final int position = viewHolder.getAdapterPosition();
 
                 if (direction == ItemTouchHelper.LEFT){
-                    final Loai khoanChi = new Loai(datas.get(position).getTen(),
+                    final Loai khoanChi = new Loai(
+                            datas.get(position).getTen(),
                             datas.get(position).getGhiChu(),
                             datas.get(position).getLoai(),
-                            datas.get(position).getImages(),
                             datas.get(position).getSoTien(),
                             datas.get(position).getNgayThang());
                     Snackbar.make(coordinatorLayout, "You are Delete!", 3000)
@@ -132,7 +123,6 @@ public class KhoanChiFragment extends Fragment {
                     adapterItemView.removeItem(position);
                 } else {
                     ((MainActivity) getActivity()).nextFragment(new AddFragment());
-//                    adapterItemView.updateList(datas);
                 }
             }
 

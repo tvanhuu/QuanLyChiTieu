@@ -55,7 +55,6 @@ public class AdapterItemView extends RecyclerView.Adapter<AdapterItemView.Recycl
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
-        holder.imgIcon.setImageResource(datas.get(position).getImages());
         holder.txtTen.setText(datas.get(position).getTen());
         holder.txtLoai.setText(datas.get(position).getLoai());
         holder.txtGhiChu.setText(datas.get(position).getGhiChu());
@@ -68,11 +67,9 @@ public class AdapterItemView extends RecyclerView.Adapter<AdapterItemView.Recycl
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder{
 
-        public CircleImageView imgIcon;
         public TextView txtTen, txtLoai, txtGhiChu, txtSoTien, txtNgayThang;
         public RecyclerViewHolder(View View) {
             super(View);
-            imgIcon = View.findViewById(R.id.img_iconItem);
             txtTen = View.findViewById(R.id.txt_ten);
             txtLoai = View.findViewById(R.id.txt_loai);
             txtGhiChu = View.findViewById(R.id.txt_ghichu);
