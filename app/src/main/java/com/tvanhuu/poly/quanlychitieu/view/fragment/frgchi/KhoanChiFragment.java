@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tvanhuu.poly.quanlychitieu.R;
+import com.tvanhuu.poly.quanlychitieu.common.Constant;
 import com.tvanhuu.poly.quanlychitieu.dao.SQLManager;
 import com.tvanhuu.poly.quanlychitieu.model.ThuChi;
 import com.tvanhuu.poly.quanlychitieu.view.activity.MainActivity;
@@ -78,7 +79,7 @@ public class KhoanChiFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).nextFragment(new AddFragment());
+                ((MainActivity) getActivity()).nextFragment(new AddFragment());;
             }
         });
     }

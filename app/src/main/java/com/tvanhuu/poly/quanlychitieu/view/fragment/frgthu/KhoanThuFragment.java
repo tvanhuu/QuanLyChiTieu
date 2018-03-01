@@ -22,12 +22,14 @@ import android.view.ViewGroup;
 
 
 import com.tvanhuu.poly.quanlychitieu.R;
+import com.tvanhuu.poly.quanlychitieu.common.Constant;
 import com.tvanhuu.poly.quanlychitieu.dao.SQLManager;
 import com.tvanhuu.poly.quanlychitieu.model.ThuChi;
 import com.tvanhuu.poly.quanlychitieu.view.activity.MainActivity;
 import com.tvanhuu.poly.quanlychitieu.view.adapter.AdapterItemView;
 import com.tvanhuu.poly.quanlychitieu.view.fragment.frgadd.AddFragment;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,6 +98,7 @@ public class KhoanThuFragment extends Fragment {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 final int position = viewHolder.getAdapterPosition();
+                ArrayList<ThuChi> send = new ArrayList<>();
 
                 if (direction == ItemTouchHelper.LEFT){
                     final ThuChi khoanThu = new ThuChi(
@@ -123,13 +126,14 @@ public class KhoanThuFragment extends Fragment {
                         }
                     },300);
                 } else {
-                    // truyen dl sang ban add fragment show len view
-//                    final Loai l = new Loai(datas.get(position).getTen(),
-//                            datas.get(position).getGhiChu(),
-//                            datas.get(position).getLoai(),
-//                            datas.get(position).getSoTien(),
-//                            datas.get(position).getNgayThang());
-                    ((MainActivity) getActivity()).nextFragment(new AddFragment());
+                    send.add(new ThuChi(
+                            datas.get(position).getId(),
+                            datas.get(position).getTen(),
+                            datas.get(position).getGhiChu(),
+                            datas.get(position).getLoai(),
+                            datas.get(position).getSoTien(),
+                            datas.get(position).getNgayThang()));
+                    ((MainActivity) getActivity()).nextFragment(AddFragment.newInstance(send));
                 }
             }
 

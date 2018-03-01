@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         drawerToggle.syncState();
         drawerLayout.addDrawerListener(drawerToggle);
         setupDrawerContent(nNavigation);
-        nextFragment(new AddFragment());
+        nextFragment(new ThongKeFragment());
     }
 
     private void onAttach() {
@@ -162,7 +162,4 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public void sendData(){
-
-    }
 }

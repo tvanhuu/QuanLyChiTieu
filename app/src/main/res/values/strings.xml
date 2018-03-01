@@ -14,6 +14,8 @@
     <string name="txt_mucchi">Tên</string>
     <string name="txt_loai">Loại</string>
     <string name="hint_so_tien">Số tiền</string>
+    <string name="Thu">Thu</string>
+    <string name="Chi">Chi</string>
 
     <string-array name="chonloai">
         <item>Thu</item>

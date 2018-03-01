@@ -27,8 +27,12 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.tvanhuu.poly.quanlychitieu.R;
+import com.tvanhuu.poly.quanlychitieu.common.Constant;
 import com.tvanhuu.poly.quanlychitieu.dao.SQLManager;
 import com.tvanhuu.poly.quanlychitieu.model.ThuChi;
+import com.tvanhuu.poly.quanlychitieu.view.activity.MainActivity;
+import com.tvanhuu.poly.quanlychitieu.view.fragment.frgchi.KhoanChiFragment;
+import com.tvanhuu.poly.quanlychitieu.view.fragment.frgthu.KhoanThuFragment;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -49,7 +53,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     private SQLManager db;
     private AppCompatEditText edtSoTien;
     private AppCompatButton btnGhi, btnSua;
-    private AppCompatTextView txtHinhAnh, txtMuc, txtGhiChu, txtLoai, txtNgayThang;
+    private AppCompatTextView txtHinhAnh, txtTen, txtGhiChu, txtLoai, txtNgayThang;
     private AppCompatImageView imgMucChi, imgGhiChu, imgLoai, imNgayThang, imgAnh;
 
     @Nullable
@@ -70,7 +74,6 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         datas = new ArrayList<>();
         if (getArguments() != null) {
             datas = getArguments().getParcelableArrayList("datas");
-
         }
     }
 
@@ -79,7 +82,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         btnGhi = view.findViewById(R.id.btn_ghi);
         btnSua = view.findViewById(R.id.btn_edit);
         txtHinhAnh = view.findViewById(R.id.txt_hinhAnh);
-        txtMuc = view.findViewById(R.id.txt_mucChi);
+        txtTen = view.findViewById(R.id.txt_mucChi);
         txtGhiChu = view.findViewById(R.id.txt_ghiChu);
         txtLoai = view.findViewById(R.id.txt_loai);
         txtNgayThang = view.findViewById(R.id.txt_ngayThang);
@@ -95,15 +98,15 @@ public class AddFragment extends Fragment implements View.OnClickListener{
 
     private void initView(){
         if (datas.size() != 0){
-            txtMuc.setText(datas.get(0).getTen());
+            txtTen.setText(datas.get(0).getTen());
             txtGhiChu.setText(datas.get(0).getGhiChu());
             txtLoai.setText(datas.get(0).getLoai());
             @SuppressLint("SimpleDateFormat") SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
             txtNgayThang.setText(sd.format(datas.get(0).getNgayThang()));
-            txtMuc.setText(datas.get(0).getTen());
             edtSoTien.setText(String.valueOf(datas.get(0).getSoTien()));
             btnGhi.setVisibility(View.GONE);
             btnSua.setVisibility(View.VISIBLE);
+            imgLoai.setVisibility(View.GONE);
         }
     }
 
@@ -122,7 +125,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         switch (view.getId()){
             case R.id.img_mucChi:
                 if(txtLoai.getText().toString().equalsIgnoreCase("")){
-                    Snackbar.make(relativeLayout , "Hãy chọn loại trước", 4000)
+                    Snackbar.make(relativeLayout , "Hãy chọn loại trước ^^!", 4000)
                             .setActionTextColor(Color.RED)
                             .setAction("OK", new View.OnClickListener() {
                                 @Override
@@ -150,15 +153,25 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                 selectImage();
                 break;
             case R.id.btn_ghi:
-                addData();
-                Toast.makeText(getContext(), "Done!", Toast.LENGTH_LONG).show();
+                addThuChi();
+                Toast.makeText(getContext(), "Đã ghi ^^!", Toast.LENGTH_LONG).show();
+                if(txtLoai.getText().toString().equals("Chi")){
+                    ((MainActivity) getActivity()).nextFragment(new KhoanChiFragment());
+                }else{
+                    ((MainActivity) getActivity()).nextFragment(new KhoanThuFragment());
+                }
                 break;
             case R.id.btn_edit:
-                editData();
-                Toast.makeText(getContext(), "Done!", Toast.LENGTH_LONG).show();
+                editThuChi();
+                Toast.makeText(getContext(), "Đã sửa ^^!", Toast.LENGTH_LONG).show();
+                if(txtLoai.getText().toString().equals("Chi")){
+                    ((MainActivity) getActivity()).nextFragment(new KhoanChiFragment());
+                }else{
+                    ((MainActivity) getActivity()).nextFragment(new KhoanThuFragment());
+                }
                 break;
             default:
-                Snackbar.make(relativeLayout , "Hãy nhập đầy đủ", 2000)
+                Snackbar.make(relativeLayout , "Hãy nhập đầy đủ ^^!", 2000)
                         .setActionTextColor(Color.RED)
                         .setAction("Ok", new View.OnClickListener() {
                             @Override
@@ -290,7 +303,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                 for (int x = 0; x < checkedMucChi.length; x++){
                     boolean check = checkedMucChi[x];
                     if(check){
-                        txtMuc.setText(datas.get(x));
+                        txtTen.setText(datas.get(x));
                         break;
                     }
                 }
@@ -334,7 +347,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                 for (int x = 0; x < checkThu.length; x++){
                     boolean check = checkThu[x];
                     if (check){
-                        txtMuc.setText(data.get(x));
+                        txtTen.setText(data.get(x));
                         break;
                     }
                 }
@@ -349,33 +362,42 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         ad.show();
     }
 
-    private void addData(){
-        if(txtMuc.getText().toString().equals("") && txtNgayThang.getText().toString().equals("")){
+    private void addThuChi(){
+        if(txtTen.getText().toString().equals("") && txtNgayThang.getText().toString().equals("")){
             Toast.makeText(getContext(), "Không được bỏ trống", Toast.LENGTH_LONG).show();
         }else{
-            db.add(createLoai());
+            ThuChi loai = new ThuChi();
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                Date dateFormat = simpleDateFormat.parse(txtNgayThang.getText().toString());
+                loai.setNgayThang(dateFormat);
+                loai.setTen(txtTen.getText().toString());
+                loai.setLoai(txtLoai.getText().toString());
+                loai.setGhiChu(txtGhiChu.getText().toString());
+                loai.setSoTien(Double.parseDouble(edtSoTien.getText().toString()));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            db.add(loai);
         }
         //http://www.coderzheaven.com/2012/12/23/store-image-android-sqlite-retrieve-it/
     }
 
-    private ThuChi createLoai(){
+    private void editThuChi(){
         ThuChi loai = new ThuChi();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         try {
             Date dateFormat = simpleDateFormat.parse(txtNgayThang.getText().toString());
+            loai.setId(datas.get(0).getId());
             loai.setNgayThang(dateFormat);
-            loai.setTen(txtMuc.getText().toString());
+            loai.setTen(txtTen.getText().toString());
             loai.setLoai(txtLoai.getText().toString());
             loai.setGhiChu(txtGhiChu.getText().toString());
             loai.setSoTien(Double.parseDouble(edtSoTien.getText().toString()));
+            db.update(loai);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-      return loai;
-    }
-
-    private void editData(){
-        db.update(createLoai());
     }
 
     @Override
