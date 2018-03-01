@@ -16,6 +16,7 @@
     <string name="hint_so_tien">Số tiền</string>
     <string name="Thu">Thu</string>
     <string name="Chi">Chi</string>
+    <string name="_200000">200000</string>
 
     <string-array name="chonloai">
         <item>Thu</item>
