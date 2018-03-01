@@ -1,6 +1,5 @@
 package com.tvanhuu.poly.quanlychitieu.view.fragment.frgchi;
 
-import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -8,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -21,15 +21,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tvanhuu.poly.quanlychitieu.R;
-import com.tvanhuu.poly.quanlychitieu.model.Loai;
+import com.tvanhuu.poly.quanlychitieu.dao.SQLManager;
+import com.tvanhuu.poly.quanlychitieu.model.ThuChi;
 import com.tvanhuu.poly.quanlychitieu.view.activity.MainActivity;
 import com.tvanhuu.poly.quanlychitieu.view.adapter.AdapterItemView;
 import com.tvanhuu.poly.quanlychitieu.view.fragment.frgadd.AddFragment;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,10 +36,11 @@ import java.util.List;
 
 public class KhoanChiFragment extends Fragment {
 
+    private SQLManager db;
     private RecyclerView rcvKhoanChi;
     private FloatingActionButton fab;
     private AdapterItemView adapterItemView;
-    private List<Loai> datas;
+    private List<ThuChi> datas;
     private CoordinatorLayout coordinatorLayout;
     
     @Nullable
@@ -53,26 +52,18 @@ public class KhoanChiFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initData();
         initView(view);
         setOnAttach();
     }
 
     private void initData() {
         datas = new ArrayList<>();
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String dateInString = "07/06/2017";
-        try {
-            Date date = simpleDateFormat.parse(dateInString);
-            datas = new ArrayList<>();
-            datas.add(new Loai("Cafe", "Cafe buoi sang","Chi",30, date ));
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        datas = db.getChi();
     }
 
     private void initView(View view) {
+        db = new SQLManager(getContext());
+        initData();
         rcvKhoanChi = view.findViewById(R.id.rcv_khoanchi);
         rcvKhoanChi.setHasFixedSize(true);
         rcvKhoanChi.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -104,9 +95,10 @@ public class KhoanChiFragment extends Fragment {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 final int position = viewHolder.getAdapterPosition();
-
+                ArrayList<ThuChi> send = new ArrayList<>();
                 if (direction == ItemTouchHelper.LEFT){
-                    final Loai khoanChi = new Loai(
+                    final ThuChi khoanChi = new ThuChi(
+                            datas.get(position).getId(),
                             datas.get(position).getTen(),
                             datas.get(position).getGhiChu(),
                             datas.get(position).getLoai(),
@@ -118,11 +110,27 @@ public class KhoanChiFragment extends Fragment {
                                 @Override
                                 public void onClick(View view) {
                                     adapterItemView.addItem(position, khoanChi);
+                                    db.add(khoanChi);
                                 }
                             }).show();
                     adapterItemView.removeItem(position);
+                    Handler hl = new Handler();
+                    hl.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            db.delete(khoanChi);
+                        }
+                    },3000);
                 } else {
-                    ((MainActivity) getActivity()).nextFragment(new AddFragment());
+                    send.add(new ThuChi(
+                            datas.get(position).getId() ,
+                            datas.get(position).getTen() ,
+                            datas.get(position).getGhiChu(),
+                            datas.get(position).getLoai(),
+                            datas.get(position).getSoTien(),
+                            datas.get(position).getNgayThang()
+                    ));
+                    ((MainActivity) getActivity()).nextFragment(AddFragment.newInstance(send));
                 }
             }
 

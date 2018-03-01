@@ -13,13 +13,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.tvanhuu.poly.quanlychitieu.model.Loai;
+import com.tvanhuu.poly.quanlychitieu.model.ThuChi;
 
 /**
  * Created by thuu on 28/02/18.
  **/
 
-public class SQLQuanLy extends SQLiteOpenHelper {
+public class SQLManager extends SQLiteOpenHelper {
 
 //    private String ten, ghiChu, loai;
 //    private double soTien;
@@ -32,24 +32,26 @@ public class SQLQuanLy extends SQLiteOpenHelper {
     private static String LOAI_TABLE = "LOAICHITIEU";
 
     // LOAI CHI TIEU
+    private static String  ID = "ID";
     private static String  NAME = "TENCHITIEU";
     private static String  NOTE = "GHICHUCHITIEU";
     private static String  TYPE = "LOAICHITIEU";
     private static String  MONEY = "SOTIENCHITIEU";
     private static String  DATE = "NGAYTHANG";
 
-    public SQLQuanLy(Context context) {
+    public SQLManager(Context context) {
         super(context, NAME_SQL, null, VERSION_SQL);
     }
 
     @Override
     public void onCreate(SQLiteDatabase SQL) {
         String sqlQuery = "CREATE TABLE " +LOAI_TABLE+ " ("+
+                ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 NAME+" NVARCHAR(50), "+
                 NOTE+" NVARCHAR(50), "+
                 TYPE+ " NVARCHAR(10), "+
                 MONEY+ " NVARCHAR(10), "+
-                DATE+ " NVARCHAR(50), ";
+                DATE+ " NVARCHAR(50) )";
         SQL.execSQL(sqlQuery);
     }
 
@@ -61,48 +63,82 @@ public class SQLQuanLy extends SQLiteOpenHelper {
         }
     }
 
-    public void add(Loai loai){
+    public void add(ThuChi loai){
         SQLiteDatabase sql = getWritableDatabase();
-        ContentValues ct = new ContentValues();
-        ct.put(NAME, loai.getTen());
-        ct.put(NOTE, loai.getGhiChu());
-        ct.put(TYPE, loai.getLoai());
-        ct.put(MONEY, String.valueOf(loai.getSoTien()));
+        ContentValues cv = new ContentValues();
+        cv.put(NAME, loai.getTen());
+        cv.put(NOTE, loai.getGhiChu());
+        cv.put(TYPE, loai.getLoai());
+        cv.put(MONEY, String.valueOf(loai.getSoTien()));
 
         @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String format = simpleDateFormat.format(loai.getNgayThang());
-        ct.put(DATE, format);
-        sql.insert(LOAI_TABLE ,null ,  ct);
+        cv.put(DATE, format);
+        sql.insert(LOAI_TABLE ,null, cv);
         sql.close();
     }
 
-    public List<Loai> getLoai(){
-        List<Loai> datas = new ArrayList<>();
+    public List<ThuChi> getChi(){
+        List<ThuChi> datas = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
         String select = "SELECT * FROM " + LOAI_TABLE;
         @SuppressLint("Recycle") Cursor cr = db.rawQuery(select, null);
         while (cr.moveToNext()){
-            Loai loai = new Loai();
-            loai.setTen(cr.getString(0));
-            loai.setGhiChu(cr.getString(1));
-            loai.setLoai(cr.getString(2));
-            loai.setSoTien(Double.parseDouble(cr.getString(3)));
+            ThuChi loai = new ThuChi();
+            loai.setId(cr.getInt(0));
+            loai.setTen(cr.getString(1));
+            loai.setGhiChu(cr.getString(2));
+            String loaiChi = cr.getString(3);
+            loai.setLoai(cr.getString(3));
+            loai.setSoTien(Double.parseDouble(cr.getString(4)));
 
             @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
             try {
-                final  Date date = simpleDateFormat.parse(cr.getString(4));
+                final  Date date = simpleDateFormat.parse(cr.getString(5));
                 loai.setNgayThang(date);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            datas.add(loai);
+            if(loaiChi.equals("Chi")){
+                datas.add(loai);
+            }
         }
         cr.close();
         db.close();
         return datas;
     }
 
-    public void update(Loai loai){
+    public List<ThuChi> getThu(){
+        List<ThuChi> datas = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        String select = "SELECT * FROM " + LOAI_TABLE;
+        @SuppressLint("Recycle") Cursor cr = db.rawQuery(select, null);
+        while (cr.moveToNext()){
+            ThuChi loai = new ThuChi();
+            loai.setId(cr.getInt(0));
+            loai.setTen(cr.getString(1));
+            loai.setGhiChu(cr.getString(2));
+            String loaiThu = cr.getString(3);
+            loai.setLoai(cr.getString(3));
+            loai.setSoTien(Double.parseDouble(cr.getString(4)));
+
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                final  Date date = simpleDateFormat.parse(cr.getString(5));
+                loai.setNgayThang(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if(loaiThu.equals("Thu")){
+                datas.add(loai);
+            }
+        }
+        cr.close();
+        db.close();
+        return datas;
+    }
+
+    public void update(ThuChi loai){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -110,16 +146,17 @@ public class SQLQuanLy extends SQLiteOpenHelper {
         cv.put(NOTE, loai.getGhiChu());
         cv.put(TYPE, loai.getLoai());
         cv.put(MONEY, String.valueOf(loai.getSoTien()));
-
         @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String date = simpleDateFormat.format(loai.getNgayThang());
         cv.put(DATE, date);
-        db.update(LOAI_TABLE, cv, NAME = "?", new String[]{loai.getTen()});
+        db.update(LOAI_TABLE, cv, ID+ "=?", new String[]{String.valueOf(loai.getId())});
         db.close();
     }
 
-    public void delete(){
-
+    public void delete(ThuChi loai){
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(LOAI_TABLE, ID+ "=? ", new String[]{String.valueOf(loai.getId())});
+        db.close();
     }
 
 }

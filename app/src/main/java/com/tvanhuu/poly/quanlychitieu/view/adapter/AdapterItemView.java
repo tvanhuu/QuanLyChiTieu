@@ -8,13 +8,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.tvanhuu.poly.quanlychitieu.R;
-import com.tvanhuu.poly.quanlychitieu.model.Loai;
+import com.tvanhuu.poly.quanlychitieu.model.ThuChi;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by thuu on 18/02/18.
@@ -22,18 +20,18 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AdapterItemView extends RecyclerView.Adapter<AdapterItemView.RecyclerViewHolder>{
 
-    private List<Loai> datas = new ArrayList<>();
+    private List<ThuChi> datas = new ArrayList<>();
 
-    public AdapterItemView(List<Loai> datas) {
+    public AdapterItemView(List<ThuChi> datas) {
         this.datas = datas;
     }
 
-    public void updateList(List<Loai> datasList){
+    public void updateList(List<ThuChi> datasList){
         datas = datasList;
         notifyDataSetChanged();
     }
 
-    public void addItem(int position, Loai khoanThu){
+    public void addItem(int position, ThuChi khoanThu){
         datas.add(position, khoanThu);
         notifyItemInserted(position);
     }

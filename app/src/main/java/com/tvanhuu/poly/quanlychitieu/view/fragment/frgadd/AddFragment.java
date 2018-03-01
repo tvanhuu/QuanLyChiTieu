@@ -3,6 +3,7 @@ package com.tvanhuu.poly.quanlychitieu.view.fragment.frgadd;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -20,14 +21,21 @@ import android.support.v7.widget.AppCompatTextView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.tvanhuu.poly.quanlychitieu.R;
+import com.tvanhuu.poly.quanlychitieu.dao.SQLManager;
+import com.tvanhuu.poly.quanlychitieu.model.ThuChi;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,9 +44,11 @@ import java.util.List;
 
 public class AddFragment extends Fragment implements View.OnClickListener{
 
+    private List<ThuChi> datas;
     private RelativeLayout relativeLayout;
+    private SQLManager db;
     private AppCompatEditText edtSoTien;
-    private AppCompatButton btnGhi;
+    private AppCompatButton btnGhi, btnSua;
     private AppCompatTextView txtHinhAnh, txtMuc, txtGhiChu, txtLoai, txtNgayThang;
     private AppCompatImageView imgMucChi, imgGhiChu, imgLoai, imNgayThang, imgAnh;
 
@@ -51,13 +61,23 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setUpData();
         setViewMain(view);
-        setOnattach();
+        setOnAttach();
+    }
+
+    private void setUpData() {
+        datas = new ArrayList<>();
+        if (getArguments() != null) {
+            datas = getArguments().getParcelableArrayList("datas");
+
+        }
     }
 
     private void setViewMain(View view) {
         edtSoTien = view.findViewById(R.id.edt_soTien);
         btnGhi = view.findViewById(R.id.btn_ghi);
+        btnSua = view.findViewById(R.id.btn_edit);
         txtHinhAnh = view.findViewById(R.id.txt_hinhAnh);
         txtMuc = view.findViewById(R.id.txt_mucChi);
         txtGhiChu = view.findViewById(R.id.txt_ghiChu);
@@ -69,15 +89,32 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         imNgayThang = view.findViewById(R.id.img_ngayThang);
         imgAnh = view.findViewById(R.id.img_anh);
         relativeLayout = view.findViewById(R.id.RelativeLayout);
+        db = new SQLManager(getContext());
+        initView();
     }
 
-    private void setOnattach() {
+    private void initView(){
+        if (datas.size() != 0){
+            txtMuc.setText(datas.get(0).getTen());
+            txtGhiChu.setText(datas.get(0).getGhiChu());
+            txtLoai.setText(datas.get(0).getLoai());
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+            txtNgayThang.setText(sd.format(datas.get(0).getNgayThang()));
+            txtMuc.setText(datas.get(0).getTen());
+            edtSoTien.setText(String.valueOf(datas.get(0).getSoTien()));
+            btnGhi.setVisibility(View.GONE);
+            btnSua.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void setOnAttach() {
         imgMucChi.setOnClickListener(this);
         imgGhiChu.setOnClickListener(this);
         imgLoai.setOnClickListener(this);
         imNgayThang.setOnClickListener(this);
         btnGhi.setOnClickListener(this);
         txtHinhAnh.setOnClickListener(this);
+        btnSua.setOnClickListener(this);
     }
 
     @Override
@@ -113,7 +150,12 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                 selectImage();
                 break;
             case R.id.btn_ghi:
-                Toast.makeText(getContext(), "Comming Soon", Toast.LENGTH_LONG).show();
+                addData();
+                Toast.makeText(getContext(), "Done!", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.btn_edit:
+                editData();
+                Toast.makeText(getContext(), "Done!", Toast.LENGTH_LONG).show();
                 break;
             default:
                 Snackbar.make(relativeLayout , "Hãy nhập đầy đủ", 2000)
@@ -178,27 +220,29 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     }
 
     private void typingGhiChu(){
-        final AlertDialog ab = new AlertDialog.Builder(getActivity()).create();
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         @SuppressLint("InflateParams") View v = LayoutInflater.from(getContext()).inflate(R.layout.dialog_note, null);
-        ab.setView(v);
-        ab.setCancelable(false);
+        dialog.setContentView(v);
+        dialog.setCancelable(false);
         final TextInputEditText edtGhiChu = v.findViewById(R.id.txt_ghichudialog);
         edtGhiChu.setText(txtGhiChu.getText().toString());
         v.findViewById(R.id.btn_huy).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ab.dismiss();
+                dialog.dismiss();
             }
         });
         v.findViewById(R.id.btn_xong).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 txtGhiChu.setText(edtGhiChu.getText().toString());
-                ab.dismiss();
+                dialog.dismiss();
             }
         });
 
-        ab.show();
+        dialog.show();
     }
 
     private void selectMucChi() {
@@ -306,7 +350,32 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     }
 
     private void addData(){
+        if(txtMuc.getText().toString().equals("") && txtNgayThang.getText().toString().equals("")){
+            Toast.makeText(getContext(), "Không được bỏ trống", Toast.LENGTH_LONG).show();
+        }else{
+            db.add(createLoai());
+        }
         //http://www.coderzheaven.com/2012/12/23/store-image-android-sqlite-retrieve-it/
+    }
+
+    private ThuChi createLoai(){
+        ThuChi loai = new ThuChi();
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date dateFormat = simpleDateFormat.parse(txtNgayThang.getText().toString());
+            loai.setNgayThang(dateFormat);
+            loai.setTen(txtMuc.getText().toString());
+            loai.setLoai(txtLoai.getText().toString());
+            loai.setGhiChu(txtGhiChu.getText().toString());
+            loai.setSoTien(Double.parseDouble(edtSoTien.getText().toString()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+      return loai;
+    }
+
+    private void editData(){
+        db.update(createLoai());
     }
 
     @Override
@@ -316,5 +385,13 @@ public class AddFragment extends Fragment implements View.OnClickListener{
             Uri imageUri = imageReturnedIntent.getData();
             imgAnh.setImageURI(imageUri);
         }
+    }
+
+    public static AddFragment newInstance(ArrayList<ThuChi> datas) {
+        Bundle args = new Bundle();
+        args.putParcelableArrayList("datas", datas);
+        AddFragment fragment = new AddFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 }

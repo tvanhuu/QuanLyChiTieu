@@ -1,6 +1,5 @@
 package com.tvanhuu.poly.quanlychitieu.view.fragment.frgthu;
 
-import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -8,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -22,15 +22,13 @@ import android.view.ViewGroup;
 
 
 import com.tvanhuu.poly.quanlychitieu.R;
-import com.tvanhuu.poly.quanlychitieu.model.Loai;
+import com.tvanhuu.poly.quanlychitieu.dao.SQLManager;
+import com.tvanhuu.poly.quanlychitieu.model.ThuChi;
 import com.tvanhuu.poly.quanlychitieu.view.activity.MainActivity;
 import com.tvanhuu.poly.quanlychitieu.view.adapter.AdapterItemView;
 import com.tvanhuu.poly.quanlychitieu.view.fragment.frgadd.AddFragment;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,10 +37,11 @@ import java.util.List;
 
 public class KhoanThuFragment extends Fragment {
 
+    private SQLManager db;
     private RecyclerView rcvKhoanThu;
     private FloatingActionButton fab;
     private AdapterItemView adapterItemView;
-    private List<Loai> datas;
+    private List<ThuChi> datas;
     private CoordinatorLayout coordinatorLayout;
 
     @Nullable
@@ -54,38 +53,18 @@ public class KhoanThuFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initData();
         initView(view);
         setOnAttach();
     }
 
     private void initData() {
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String dateInString = "07/07/2017";
-        String dateInString1 = "07/08/2017";
-        String dateInString2 = "07/08/2017";
-        String dateInString3 = "07/09/2017";
-        String dateInString4 = "07/10/2017";
-        String dateInString5 = "07/11/2017";
-        String dateInString6 = "07/12/2017";
-        try {
-            Date date = simpleDateFormat.parse(dateInString);
-            Date date1 = simpleDateFormat.parse(dateInString1);
-            Date date2 = simpleDateFormat.parse(dateInString2);
-            Date date3 = simpleDateFormat.parse(dateInString3);
-            Date date4 = simpleDateFormat.parse(dateInString4);
-            Date date5 = simpleDateFormat.parse(dateInString5);
-            Date date6 = simpleDateFormat.parse(dateInString6);
-            datas = new ArrayList<>();
-            datas.add(new Loai("Lương", "Lương tháng 7","Thu",30, date ));
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
+        datas = new ArrayList<>();
+        datas = db.getThu();
     }
 
     private void initView(View view) {
+        db = new SQLManager(getContext());
+        initData();
         coordinatorLayout = view.findViewById(R.id.CoordinatorLayout);
         fab = view.findViewById(R.id.fab_thu);
         rcvKhoanThu = view.findViewById(R.id.rcv_khoanthu);
@@ -119,7 +98,8 @@ public class KhoanThuFragment extends Fragment {
                 final int position = viewHolder.getAdapterPosition();
 
                 if (direction == ItemTouchHelper.LEFT){
-                    final Loai khoanThu = new Loai(
+                    final ThuChi khoanThu = new ThuChi(
+                            datas.get(position).getId(),
                             datas.get(position).getTen(),
                             datas.get(position).getGhiChu(),
                             datas.get(position).getLoai(),
@@ -131,9 +111,17 @@ public class KhoanThuFragment extends Fragment {
                                 @Override
                                 public void onClick(View view) {
                                     adapterItemView.addItem(position, khoanThu);
+                                    db.add(khoanThu);
                                 }
                             }).show();
                     adapterItemView.removeItem(position);
+                    Handler hl = new Handler();
+                    hl.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            db.delete(khoanThu);
+                        }
+                    },300);
                 } else {
                     // truyen dl sang ban add fragment show len view
 //                    final Loai l = new Loai(datas.get(position).getTen(),

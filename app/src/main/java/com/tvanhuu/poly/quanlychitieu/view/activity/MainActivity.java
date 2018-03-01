@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.tvanhuu.poly.quanlychitieu.R;
+import com.tvanhuu.poly.quanlychitieu.dao.SQLManager;
 import com.tvanhuu.poly.quanlychitieu.view.fragment.frgadd.AddFragment;
 import com.tvanhuu.poly.quanlychitieu.view.fragment.frgthongke.ThongKeFragment;
 import com.tvanhuu.poly.quanlychitieu.view.fragment.frggioithieu.GioiThieuFragment;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView nNavigation;
     private View nHeader;
     private ActionBarDrawerToggle drawerToggle;
+    private SQLManager db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setViewMain() {
+        db = new SQLManager(this);
+        //
         toolbar = findViewById(R.id.toolbar);
         drawerLayout = findViewById(R.id.drawer_layout);
         nNavigation =  findViewById(R.id.nvView);
@@ -112,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
     public void nextFragment(Fragment fragment){
         @SuppressLint("CommitTransaction") FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.myLayout , fragment);
@@ -155,5 +160,9 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog dialog = mExit.create();
         dialog.getWindow().getAttributes().windowAnimations = R.style.dialogTheme;
         dialog.show();
+    }
+
+    public void sendData(){
+
     }
 }

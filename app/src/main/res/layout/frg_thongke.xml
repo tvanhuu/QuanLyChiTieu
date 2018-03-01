@@ -10,7 +10,7 @@
     <!--hom nay -->
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="80dp"
         app:cardElevation="4dp"
         app:cardCornerRadius="2dp"
         app:cardBackgroundColor="@color/white">
@@ -23,7 +23,7 @@
                 android:id="@+id/img_iconThongke"
                 android:layout_width="72dp"
                 android:layout_height="match_parent"
-                android:padding="@dimen/padding_tiny_plus_one"
+                android:padding="@dimen/padding_medium"
                 android:src="@drawable/logo_user"
                 app:civ_border_width="2dp"
                 app:civ_border_color="#c6c6c6"
@@ -126,7 +126,7 @@
     <!--tuan nay -->
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="80dp"
         android:layout_marginTop="10dp"
         app:cardElevation="4dp"
         app:cardCornerRadius="2dp"
@@ -140,7 +140,7 @@
                 android:id="@+id/img_iconThongke1"
                 android:layout_width="72dp"
                 android:layout_height="match_parent"
-                android:padding="@dimen/padding_tiny_plus_one"
+                android:padding="@dimen/padding_medium"
                 android:src="@drawable/logo_user"
                 app:civ_border_width="2dp"
                 app:civ_border_color="#c6c6c6"
@@ -244,7 +244,7 @@
     <!--thang nay -->
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="80dp"
         android:layout_marginTop="10dp"
         app:cardElevation="4dp"
         app:cardCornerRadius="2dp"
@@ -258,7 +258,7 @@
                 android:id="@+id/img_iconThongke2"
                 android:layout_width="72dp"
                 android:layout_height="match_parent"
-                android:padding="@dimen/padding_tiny_plus_one"
+                android:padding="@dimen/padding_medium"
                 android:src="@drawable/logo_user"
                 app:civ_border_width="2dp"
                 app:civ_border_color="#c6c6c6"
@@ -361,7 +361,7 @@
     <!--nam nay -->
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="80dp"
         android:layout_marginTop="10dp"
         app:cardElevation="4dp"
         app:cardCornerRadius="2dp"
@@ -375,7 +375,7 @@
                 android:id="@+id/img_iconThongke3"
                 android:layout_width="72dp"
                 android:layout_height="match_parent"
-                android:padding="@dimen/padding_tiny_plus_one"
+                android:padding="@dimen/padding_medium"
                 android:src="@drawable/logo_user"
                 app:civ_border_width="2dp"
                 app:civ_border_color="#c6c6c6"
