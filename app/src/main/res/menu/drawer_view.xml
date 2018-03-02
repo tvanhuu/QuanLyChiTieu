@@ -15,7 +15,7 @@
             android:title="Thống Kê" />
     </group>
 
-        <item android:title="SUB">
+        <item android:title="Thêm">
             <menu>
                 <item
                     android:id="@+id/nav_gioithieu"

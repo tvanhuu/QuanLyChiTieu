@@ -18,6 +18,19 @@
     <string name="Chi">Chi</string>
     <string name="_200000">200000</string>
 
+    <string name="gioithieu">* Giới thiệu</string>
+    <string name="tenphanmem">Tên phần mềm:</string>
+    <string name="ngaytao">Ngày tạo:</string>
+    <string name="phienban">Phiên bản:</string>
+    <string name="tacgia">Tác giả:</string>
+    <string name="ngagtao">02/3/2017</string>
+    <string name="v1_0">v1.0</string>
+    <string name="tranhuu">Trần Văn Hữu</string>
+    <string name="lienhe">* Liên hệ</string>
+    <string name="caidat">Cài đặt</string>
+    <string name="chude">* Cài đặt chủ đề</string>
+    <string name="chudetoi">Chủ để màu tối</string>
+
     <string-array name="chonloai">
         <item>Thu</item>
         <item>Chi</item>

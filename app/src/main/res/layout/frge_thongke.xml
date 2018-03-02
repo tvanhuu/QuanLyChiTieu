@@ -80,7 +80,7 @@
                     android:layout_width="72dp"
                     android:layout_height="match_parent"
                     android:padding="@dimen/padding_medium"
-                    android:src="@drawable/logo_user"
+                    android:src="@drawable/ic_coin"
                     app:civ_border_width="2dp"
                     app:civ_border_color="#c6c6c6"
                     android:layout_marginStart="5dp"
@@ -200,7 +200,7 @@
                     android:layout_width="72dp"
                     android:layout_height="match_parent"
                     android:padding="@dimen/padding_medium"
-                    android:src="@drawable/logo_user"
+                    android:src="@drawable/ic_coin"
                     app:civ_border_width="2dp"
                     app:civ_border_color="#c6c6c6"
                     android:layout_marginStart="5dp"
@@ -210,7 +210,7 @@
                     android:id="@+id/txt_1.1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tuần này"
+                    android:text="Tháng này"
                     android:layout_toEndOf="@id/img_iconThongke1"
                     android:layout_alignParentTop="true"
                     style="@style/textstyle"
@@ -220,7 +220,7 @@
                     android:id="@+id/txt_1week"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="(05/12/2018 - 11/12/2018)"
+                    android:text="(3)"
                     android:layout_toEndOf="@id/txt_1.1"
                     android:layout_alignParentTop="true"
                     style="@style/textstyle"
@@ -318,7 +318,7 @@
                     android:layout_width="72dp"
                     android:layout_height="match_parent"
                     android:padding="@dimen/padding_medium"
-                    android:src="@drawable/logo_user"
+                    android:src="@drawable/ic_coin"
                     app:civ_border_width="2dp"
                     app:civ_border_color="#c6c6c6"
                     android:layout_marginStart="5dp"
@@ -416,6 +416,7 @@
                     android:textColor="#ff942f"/>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
+
 
     </RelativeLayout>
 </ScrollView>

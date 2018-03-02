@@ -2,10 +2,8 @@
 <android.support.v7.widget.CardView
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/margin_5dp"
-    android:layout_marginEnd="@dimen/margin_5dp"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
     android:layout_marginTop="@dimen/margin_5dp"
     card_view:cardCornerRadius="2dp"
     card_view:cardElevation="4dp"
@@ -14,37 +12,38 @@
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="3dp"
-        android:paddingLeft="6dp"
-        android:paddingRight="6dp"
+        android:layout_height="match_parent"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
         android:paddingTop="3dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/img_iconItem"
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            android:padding="5dp"
-            android:src="@drawable/logo_user"
+            android:layout_width="62dp"
+            android:layout_height="match_parent"
+            android:padding="@dimen/padding_small"
+            android:src="@drawable/ic_coin"
             app:civ_border_width="2dp"
             app:civ_border_color="#c6c6c6"
             android:layout_alignParentStart="true"/>
         <LinearLayout
             android:id="@+id/ll1"
             android:layout_width="150dp"
-            android:layout_height="52dp"
+            android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/img_iconItem"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5dp">
                 <TextView
                     android:id="@+id/txt_loai"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Chi: "
+                    android:text="Chi"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/textColor"
                     android:maxLines="1"
@@ -52,8 +51,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=": "
+                    android:text=" : "
                     android:textStyle="bold"
+
                     android:textColor="@color/textColor"
                     android:maxLines="1"
                     android:layout_gravity="center_vertical"/>
@@ -63,6 +63,7 @@
                     android:layout_height="wrap_content"
                     android:text="Đi chợ"
                     android:textStyle="bold"
+                    android:textSize="16sp"
                     android:textColor="@color/textColor"
                     android:maxLines="1"
                     android:layout_gravity="center_vertical"/>
@@ -72,8 +73,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/textColor"
+                android:textSize="16sp"
                 android:text="Ghi chú: Mua thức ăn rằm"
-                android:layout_marginTop="5dp"
+
+                android:layout_marginTop="10dp"
                 android:maxLines="1"
                 android:layout_gravity="bottom" />
 
@@ -81,7 +84,7 @@
 
         <LinearLayout
             android:layout_width="150dp"
-            android:layout_height="52dp"
+            android:layout_height="match_parent"
             android:layout_marginEnd="5dp"
             android:layout_toEndOf="@+id/ll1"
             android:layout_alignParentEnd="true"
@@ -89,26 +92,31 @@
            <LinearLayout
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:layout_gravity="end">
+               android:layout_gravity="end"
+               android:layout_marginTop="@dimen/margin_5dp">
                <TextView
                    android:id="@+id/txt_sotien"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:text="1.000"
-                   android:textColor="@color/textColor"
+                   android:textSize="16sp"
+                   android:textColor="#f13838"
                    android:maxLines="1" />
+
                <TextView
                    android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
+                   android:layout_height="22dp"
                    android:text=" VND"
-                   android:textColor="@color/textColor" />
+                   android:textSize="16sp"
+                   android:textColor="#f13838"/>
            </LinearLayout>
             <TextView
                 android:id="@+id/txt_ngaythang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="21/2/2018"
-                android:layout_marginTop="5dp"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/textColor"
                 android:maxLines="1"
                 android:layout_gravity="end"/>

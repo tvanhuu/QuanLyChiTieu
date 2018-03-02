@@ -5,13 +5,162 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/padding_large"
+    android:background="@color/white"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Fragment gioi thieu"
-        android:textColor="#000"
-        android:textSize="30sp"
-        android:layout_gravity="center"/>
+        card_view:cardBackgroundColor="@color/white"
+        card_view:cardElevation="1dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/gioithieu"
+            android:textColor="@color/text_color"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:baselineAligned="true"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="5"
+                android:orientation="vertical"
+                android:paddingStart="8dp"
+                tools:ignore="RtlSymmetry">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="12dp"
+                    android:paddingTop="11dp"
+                    android:text="@string/tenphanmem"
+                    android:textColor="@color/text_color"
+                    android:textSize="17sp" />
+
+                <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#eee" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="12dp"
+                    android:paddingTop="11dp"
+                    android:text="@string/ngaytao"
+                    android:textColor="@color/text_color"
+                    android:textSize="17sp" />
+
+                <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#eee" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="12dp"
+                    android:paddingTop="11dp"
+                    android:text="@string/phienban"
+                    android:textColor="@color/text_color"
+                    android:textSize="17sp" />
+
+                <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#eee" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="12dp"
+                    android:paddingTop="11dp"
+                    android:text="@string/tacgia"
+                    android:textColor="@color/text_color"
+                    android:textSize="17sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="5"
+                android:gravity="end"
+                android:orientation="vertical"
+                android:paddingEnd="12dp"
+                tools:ignore="RtlSymmetry">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:paddingBottom="12dp"
+                    android:paddingTop="11dp"
+                    android:text="@string/app_name"
+                    android:textColor="@color/text_color"
+                    android:textSize="17sp" />
+
+                <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#eee" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:paddingBottom="12dp"
+                    android:paddingTop="11dp"
+                    android:text="@string/ngagtao"
+                    android:textColor="@color/text_color"
+                    android:textSize="17sp" />
+
+                <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#eee" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:paddingBottom="12dp"
+                    android:paddingTop="11dp"
+                    android:text="@string/v1_0"
+                    android:textColor="@color/text_color"
+                    android:textSize="17sp" />
+
+                <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#eee" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:paddingBottom="12dp"
+                    android:paddingTop="11dp"
+                    android:text="@string/tranhuu"
+                    android:textColor="@color/text_color"
+                    android:textSize="17sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
 </LinearLayout>

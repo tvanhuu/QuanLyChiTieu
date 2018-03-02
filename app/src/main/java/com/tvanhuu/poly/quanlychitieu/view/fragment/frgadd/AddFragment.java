@@ -18,6 +18,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,7 @@ import java.util.List;
  * Created by thuu on 28/01/18.
  **/
 
-public class AddFragment extends Fragment implements View.OnClickListener{
+public class AddFragment extends Fragment implements View.OnClickListener {
 
     private List<ThuChi> datas;
     private RelativeLayout relativeLayout;
@@ -96,8 +97,8 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         initView();
     }
 
-    private void initView(){
-        if (datas.size() != 0){
+    private void initView() {
+        if (datas.size() != 0) {
             txtTen.setText(datas.get(0).getTen());
             txtGhiChu.setText(datas.get(0).getGhiChu());
             txtLoai.setText(datas.get(0).getLoai());
@@ -122,10 +123,10 @@ public class AddFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.img_mucChi:
-                if(txtLoai.getText().toString().equalsIgnoreCase("")){
-                    Snackbar.make(relativeLayout , "Hãy chọn loại trước ^^!", 4000)
+                if (txtLoai.getText().toString().equalsIgnoreCase("")) {
+                    Snackbar.make(relativeLayout, "Hãy chọn loại trước ^^!", 4000)
                             .setActionTextColor(Color.RED)
                             .setAction("OK", new View.OnClickListener() {
                                 @Override
@@ -134,9 +135,9 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                                 }
                             })
                             .show();
-                }else if(txtLoai.getText().toString().equalsIgnoreCase("Thu")){
+                } else if (txtLoai.getText().toString().equalsIgnoreCase("Thu")) {
                     selectMucThu();
-                }else{
+                } else {
                     selectMucChi();
                 }
                 break;
@@ -154,24 +155,12 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                 break;
             case R.id.btn_ghi:
                 addThuChi();
-                Toast.makeText(getContext(), "Đã ghi ^^!", Toast.LENGTH_LONG).show();
-                if(txtLoai.getText().toString().equals("Chi")){
-                    ((MainActivity) getActivity()).nextFragment(new KhoanChiFragment());
-                }else{
-                    ((MainActivity) getActivity()).nextFragment(new KhoanThuFragment());
-                }
                 break;
             case R.id.btn_edit:
                 editThuChi();
-                Toast.makeText(getContext(), "Đã sửa ^^!", Toast.LENGTH_LONG).show();
-                if(txtLoai.getText().toString().equals("Chi")){
-                    ((MainActivity) getActivity()).nextFragment(new KhoanChiFragment());
-                }else{
-                    ((MainActivity) getActivity()).nextFragment(new KhoanThuFragment());
-                }
                 break;
             default:
-                Snackbar.make(relativeLayout , "Hãy nhập đầy đủ ^^!", 2000)
+                Snackbar.make(relativeLayout, "Hãy nhập đầy đủ ^^!", 2000)
                         .setActionTextColor(Color.RED)
                         .setAction("Ok", new View.OnClickListener() {
                             @Override
@@ -185,26 +174,26 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         }
     }
 
-    private void selectDate(){
+    private void selectDate() {
         Calendar ca = Calendar.getInstance();
         DatePickerDialog dp = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onDateSet(DatePicker datePicker, int y, int m, int d) {
-                txtNgayThang.setText(d + "/" +(m+1)+ "/" + y);
+                txtNgayThang.setText(d + "/" + (m + 1) + "/" + y);
             }
         }, ca.get(Calendar.YEAR), ca.get(Calendar.MONTH), ca.get(Calendar.DAY_OF_MONTH));
         dp.show();
     }
 
-    private void selectImage(){
+    private void selectImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1001);
     }
 
-    private void selectLoai(){
+    private void selectLoai() {
         final String[] listLoai = getResources().getStringArray(R.array.chonloai);
         AlertDialog.Builder ab = new AlertDialog.Builder(getActivity());
         ab.setTitle("Chọn loại");
@@ -232,7 +221,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         ad.show();
     }
 
-    private void typingGhiChu(){
+    private void typingGhiChu() {
         final Dialog dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         //dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
@@ -281,11 +270,11 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         };
 
         final boolean[] checkedMucChi = new boolean[]{
-                false, false, false, false, false , false , false , false,false,
-                false, false, false, false, false , false , false , false, false,
-                false, false, false, false, false , false , false , false, false,
-                false, false, false, false, false , false , false , false, false,
-                false, false, false, false, false , false , false , false, false
+                false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false, false
         };
 
         final List<String> datas = Arrays.asList(mucChi);
@@ -300,9 +289,9 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         ab.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                for (int x = 0; x < checkedMucChi.length; x++){
+                for (int x = 0; x < checkedMucChi.length; x++) {
                     boolean check = checkedMucChi[x];
-                    if(check){
+                    if (check) {
                         txtTen.setText(datas.get(x));
                         break;
                     }
@@ -317,11 +306,11 @@ public class AddFragment extends Fragment implements View.OnClickListener{
             }
         });
 
-        AlertDialog ad =ab.create();
+        AlertDialog ad = ab.create();
         ad.show();
     }
 
-    private void selectMucThu(){
+    private void selectMucThu() {
         AlertDialog.Builder ab = new AlertDialog.Builder(getActivity());
         String[] arrThu = {
                 "Tiền Lương",
@@ -344,9 +333,9 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         ab.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                for (int x = 0; x < checkThu.length; x++){
+                for (int x = 0; x < checkThu.length; x++) {
                     boolean check = checkThu[x];
-                    if (check){
+                    if (check) {
                         txtTen.setText(data.get(x));
                         break;
                     }
@@ -362,10 +351,10 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         ad.show();
     }
 
-    private void addThuChi(){
-        if(txtTen.getText().toString().equals("") && txtNgayThang.getText().toString().equals("")){
+    private void addThuChi() {
+        if (txtTen.getText().toString().equals("") || txtNgayThang.getText().toString().equals("") || edtSoTien.getText().toString().equals("")) {
             Toast.makeText(getContext(), "Không được bỏ trống", Toast.LENGTH_LONG).show();
-        }else{
+        } else {
             ThuChi loai = new ThuChi();
             @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
             try {
@@ -379,24 +368,40 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                 e.printStackTrace();
             }
             db.add(loai);
+            Toast.makeText(getContext(), "Đã ghi ^^!", Toast.LENGTH_LONG).show();
+            if (txtLoai.getText().toString().equals("Chi")) {
+                ((MainActivity) getActivity()).nextFragment(new KhoanChiFragment());
+            } else {
+                ((MainActivity) getActivity()).nextFragment(new KhoanThuFragment());
+            }
         }
         //http://www.coderzheaven.com/2012/12/23/store-image-android-sqlite-retrieve-it/
     }
 
-    private void editThuChi(){
-        ThuChi loai = new ThuChi();
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            Date dateFormat = simpleDateFormat.parse(txtNgayThang.getText().toString());
-            loai.setId(datas.get(0).getId());
-            loai.setNgayThang(dateFormat);
-            loai.setTen(txtTen.getText().toString());
-            loai.setLoai(txtLoai.getText().toString());
-            loai.setGhiChu(txtGhiChu.getText().toString());
-            loai.setSoTien(Double.parseDouble(edtSoTien.getText().toString()));
-            db.update(loai);
-        } catch (ParseException e) {
-            e.printStackTrace();
+    private void editThuChi() {
+        if (txtTen.getText().toString().equals("") || txtNgayThang.getText().toString().equals("") || edtSoTien.getText().toString().equals("")) {
+            Toast.makeText(getContext(), "Không được bỏ trống", Toast.LENGTH_LONG).show();
+        } else {
+            ThuChi loai = new ThuChi();
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                Date dateFormat = simpleDateFormat.parse(txtNgayThang.getText().toString());
+                loai.setId(datas.get(0).getId());
+                loai.setNgayThang(dateFormat);
+                loai.setTen(txtTen.getText().toString());
+                loai.setLoai(txtLoai.getText().toString());
+                loai.setGhiChu(txtGhiChu.getText().toString());
+                loai.setSoTien(Double.parseDouble(edtSoTien.getText().toString()));
+                db.update(loai);
+                Toast.makeText(getContext(), "Đã sửa ^^!", Toast.LENGTH_LONG).show();
+                if (txtLoai.getText().toString().equals("Chi")) {
+                    ((MainActivity) getActivity()).nextFragment(new KhoanChiFragment());
+                } else {
+                    ((MainActivity) getActivity()).nextFragment(new KhoanThuFragment());
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
     }
 

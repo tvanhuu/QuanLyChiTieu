@@ -20,7 +20,9 @@ import com.tvanhuu.poly.quanlychitieu.common.Constant;
 import com.tvanhuu.poly.quanlychitieu.dao.SQLManager;
 import com.tvanhuu.poly.quanlychitieu.model.ThuChi;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -38,7 +40,7 @@ public class ThongKeFragment extends Fragment {
     private PieDataSet pieDataSet ;
     private PieData pieData ;
     private SQLManager db;
-    private AppCompatTextView txtDay, txtThuDay, txtChiDay, txtWeek, txtThuWeek, txtChiWeek, txtThuTong, txtChiTong, txtYear;
+    private AppCompatTextView txtDay, txtThuDay, txtChiDay, txtMonth, txtThuMonth, txtChiMonth, txtThuTong, txtChiTong, txtYear;
 
     @Nullable
     @Override
@@ -69,9 +71,9 @@ public class ThongKeFragment extends Fragment {
         txtDay = view.findViewById(R.id.txt_1day);
         txtThuDay = view.findViewById(R.id.txt_thuhomnay);
         txtChiDay = view.findViewById(R.id.txt_chihomnay);
-        txtWeek = view.findViewById(R.id.txt_1week);
-        txtThuWeek = view.findViewById(R.id.txt_thutuannay);
-        txtChiWeek = view.findViewById(R.id.txt_chituannay);
+        txtMonth = view.findViewById(R.id.txt_1week);
+        txtThuMonth = view.findViewById(R.id.txt_thutuannay);
+        txtChiMonth = view.findViewById(R.id.txt_chituannay);
         txtThuTong = view.findViewById(R.id.txt_thuTong);
         txtChiTong = view.findViewById(R.id.txt_chiTong);
         txtYear = view.findViewById(R.id.txt_year);
@@ -79,13 +81,17 @@ public class ThongKeFragment extends Fragment {
         pieThu = view.findViewById(R.id.charThu);
         pieEntriesThu();
         pieEntriesChi();
+        setDataView();
     }
 
     private void pieEntriesChi() {
         pieDataSet = new PieDataSet(pieChiList, "");
         pieData = new PieData(pieDataSet);
         pieDataSet.setColors(Constant.COLORFUL_COLORS);
+        pieDataSet.setValueTextColor(Color.WHITE);
+        pieChi.setDrawEntryLabels(false);
         pieChi.setData(pieData);
+        pieChi.setDescription(null);
         pieChi.animateY(3000);
         pieChi.invalidate();
     }
@@ -94,7 +100,10 @@ public class ThongKeFragment extends Fragment {
         pieDataSet = new PieDataSet(pieThuList, "");
         pieData = new PieData(pieDataSet);
         pieDataSet.setColors(Constant.COLORFUL_COLORS);
+        pieDataSet.setValueTextColor(Color.WHITE);
         pieThu.setData(pieData);
+        pieThu.setDescription(null);
+        pieThu.setDrawEntryLabels(false);
         pieThu.animateY(3000);
         pieThu.invalidate();
     }
@@ -109,6 +118,69 @@ public class ThongKeFragment extends Fragment {
         for(int i = 0; i < datasChi.size(); i++){
             pieChiList.add(new PieEntry((float) (datasChi.get(i).getSoTien()), datasChi.get(i).getTen()));
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void setDataView() {
+        // card day
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDay = new SimpleDateFormat("d/M/yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleMonth = new SimpleDateFormat("M");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleYear = new SimpleDateFormat("yyyy");
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+        String daynow = day+"/"+(month+1)+"/"+year;
+
+        double thuDay = 0;
+        double thuMonth = 0;
+        double thuYear = 0;
+        for (int i = 0; i < datasThu.size(); i++){
+            String formatDay = simpleDay.format(datasThu.get(i).getNgayThang());
+            String formatMonth = simpleMonth.format(datasThu.get(i).getNgayThang());
+            String formatYear = simpleYear.format(datasThu.get(i).getNgayThang());
+
+            if (formatDay.equalsIgnoreCase(daynow)){
+                thuDay+=(datasThu.get(i).getSoTien());
+            }
+            if(formatMonth.equalsIgnoreCase(String.valueOf((month+1)))){
+                thuMonth+=(datasThu.get(i).getSoTien());
+            }
+            if (formatYear.equalsIgnoreCase(String.valueOf(year))){
+                thuYear+=(datasThu.get(i).getSoTien());
+            }
+        }
+
+        double chiDay = 0;
+        double chiMonth = 0;
+        double chiYear = 0;
+        for (int i = 0; i < datasChi.size(); i++){
+            String formatDay = simpleDay.format(datasChi.get(i).getNgayThang());
+            String formatMonth = simpleMonth.format(datasChi.get(i).getNgayThang());
+            String formatYear = simpleYear.format(datasChi.get(i).getNgayThang());
+            if (formatDay.equalsIgnoreCase(daynow)){
+                chiDay+=(datasChi.get(i).getSoTien());
+            }
+            if(formatMonth.equalsIgnoreCase(String.valueOf((month+1)))){
+                chiMonth+=(datasChi.get(i).getSoTien());
+            }
+            if (formatYear.equalsIgnoreCase(String.valueOf(year))){
+                chiYear+=(datasChi.get(i).getSoTien());
+            }
+        }
+
+
+        txtChiDay.setText(String.valueOf(chiDay));
+        txtDay.setText("("+daynow+")");
+        txtThuDay.setText(String.valueOf(thuDay));
+
+        txtThuMonth.setText(String.valueOf(thuMonth));
+        txtChiMonth.setText(String.valueOf(chiMonth));
+        txtMonth.setText("("+(month+1)+")");
+
+        txtYear.setText("("+(year)+")");
+        txtThuTong.setText(String.valueOf(thuYear));
+        txtChiTong.setText(String.valueOf(chiYear));
     }
 
 }
