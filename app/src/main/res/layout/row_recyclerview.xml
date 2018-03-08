@@ -37,7 +37,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_5dp">
+                android:layout_marginTop="10dp">
                 <TextView
                     android:id="@+id/txt_loai"
                     android:layout_width="wrap_content"
@@ -75,8 +75,7 @@
                 android:textColor="@color/textColor"
                 android:textSize="16sp"
                 android:text="Ghi chú: Mua thức ăn rằm"
-
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:maxLines="1"
                 android:layout_gravity="bottom" />
 
@@ -93,7 +92,7 @@
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_gravity="end"
-               android:layout_marginTop="@dimen/margin_5dp">
+               android:layout_marginTop="10dp">
                <TextView
                    android:id="@+id/txt_sotien"
                    android:layout_width="wrap_content"
@@ -116,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:text="21/2/2018"
                 android:textSize="16sp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:textColor="@color/textColor"
                 android:maxLines="1"
                 android:layout_gravity="end"/>
