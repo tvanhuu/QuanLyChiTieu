@@ -23,10 +23,11 @@ import android.view.ViewGroup;
 import com.tvanhuu.poly.quanlychitieu.R;
 import com.tvanhuu.poly.quanlychitieu.common.Constant;
 import com.tvanhuu.poly.quanlychitieu.dao.SQLManager;
-import com.tvanhuu.poly.quanlychitieu.model.ThuChi;
+import com.tvanhuu.poly.quanlychitieu.model.ObjectLoai;
 import com.tvanhuu.poly.quanlychitieu.view.activity.MainActivity;
-import com.tvanhuu.poly.quanlychitieu.view.adapter.AdapterItemView;
-import com.tvanhuu.poly.quanlychitieu.view.fragment.frgadd.AddFragment;
+import com.tvanhuu.poly.quanlychitieu.view.adapter.AdapterItemLoai;
+import com.tvanhuu.poly.quanlychitieu.view.fragment.frgadd.AddLoai;
+import com.tvanhuu.poly.quanlychitieu.view.fragment.frgadd.AddPage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +41,8 @@ public class KhoanChiFragment extends Fragment {
     private SQLManager db;
     private RecyclerView rcvKhoanChi;
     private FloatingActionButton fab;
-    private AdapterItemView adapterItemView;
-    private List<ThuChi> datas;
+    private AdapterItemLoai adapterItemView;
+    private List<ObjectLoai> datas;
     private CoordinatorLayout coordinatorLayout;
     
     @Nullable
@@ -69,7 +70,7 @@ public class KhoanChiFragment extends Fragment {
         rcvKhoanChi.setHasFixedSize(true);
         rcvKhoanChi.setLayoutManager(new LinearLayoutManager(getContext()));
         fab = view.findViewById(R.id.fab_chi);
-        adapterItemView = new AdapterItemView(datas);
+        adapterItemView = new AdapterItemLoai(datas);
         coordinatorLayout = view.findViewById(R.id.CoordinatorLayoutchi);
         rcvKhoanChi.setAdapter(adapterItemView);
         initSwipe();
@@ -79,7 +80,8 @@ public class KhoanChiFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).nextFragment(new AddFragment());;
+                ((MainActivity) getActivity()).nextFragment(new AddPage());;
+                Constant.status = 1;
             }
         });
     }
@@ -96,9 +98,9 @@ public class KhoanChiFragment extends Fragment {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 final int position = viewHolder.getAdapterPosition();
-                ArrayList<ThuChi> send = new ArrayList<>();
+                ArrayList<ObjectLoai> send = new ArrayList<>();
                 if (direction == ItemTouchHelper.LEFT){
-                    final ThuChi khoanChi = new ThuChi(
+                    final ObjectLoai khoanChi = new ObjectLoai(
                             datas.get(position).getId(),
                             datas.get(position).getTen(),
                             datas.get(position).getGhiChu(),
@@ -123,7 +125,7 @@ public class KhoanChiFragment extends Fragment {
                         }
                     },3000);
                 } else {
-                    send.add(new ThuChi(
+                    send.add(new ObjectLoai(
                             datas.get(position).getId() ,
                             datas.get(position).getTen() ,
                             datas.get(position).getGhiChu(),
@@ -131,7 +133,7 @@ public class KhoanChiFragment extends Fragment {
                             datas.get(position).getSoTien(),
                             datas.get(position).getNgayThang()
                     ));
-                    ((MainActivity) getActivity()).nextFragment(AddFragment.newInstance(send));
+                    ((MainActivity) getActivity()).nextFragment(AddLoai.newInstance(send));
                 }
             }
 

@@ -30,7 +30,8 @@ import android.widget.Toast;
 import com.tvanhuu.poly.quanlychitieu.R;
 import com.tvanhuu.poly.quanlychitieu.common.Constant;
 import com.tvanhuu.poly.quanlychitieu.dao.SQLManager;
-import com.tvanhuu.poly.quanlychitieu.model.ThuChi;
+import com.tvanhuu.poly.quanlychitieu.model.ObjectKhoan;
+import com.tvanhuu.poly.quanlychitieu.model.ObjectLoai;
 import com.tvanhuu.poly.quanlychitieu.view.activity.MainActivity;
 import com.tvanhuu.poly.quanlychitieu.view.fragment.frgchi.KhoanChiFragment;
 import com.tvanhuu.poly.quanlychitieu.view.fragment.frgthu.KhoanThuFragment;
@@ -47,9 +48,9 @@ import java.util.List;
  * Created by thuu on 28/01/18.
  **/
 
-public class AddFragment extends Fragment implements View.OnClickListener {
+public class AddLoai extends Fragment implements View.OnClickListener {
 
-    private List<ThuChi> datas;
+    private List<ObjectLoai> datas;
     private RelativeLayout relativeLayout;
     private SQLManager db;
     private AppCompatEditText edtSoTien;
@@ -60,7 +61,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceStte) {
-        return inflater.inflate(R.layout.frg_add, container, false);
+        return inflater.inflate(R.layout.frg_add_loai, container, false);
     }
 
     @Override
@@ -98,6 +99,11 @@ public class AddFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initView() {
+        if (Constant.status == 1){
+            txtLoai.setText(R.string.Chi);
+        }else{
+            txtLoai.setText(R.string.Thu);
+        }
         if (datas.size() != 0) {
             txtTen.setText(datas.get(0).getTen());
             txtGhiChu.setText(datas.get(0).getGhiChu());
@@ -249,33 +255,16 @@ public class AddFragment extends Fragment implements View.OnClickListener {
 
     private void selectMucChi() {
         AlertDialog.Builder ab = new AlertDialog.Builder(getActivity());
-        final String[] mucChi = new String[]{
-                "Cafe",
-                "Tiền điện",
-                "Tiền nước",
-                "Tiền thẻ điện thoại",
-                "Tiền ăn sáng",
-                "Tiền mua bao cao su",
-                "Tiền mua băng vệ sinh",
-                "Tiền mua quần áo",
-                "Tiền đổ xăng",
-                "Tiền mua bao cao su",
-                "Tiền mua bao cao su",
-                "Tiền mua bao cao su",
-                "Tiền mua bao cao su",
-                "Tiền mua bao cao su",
-                "Tiền mua bao cao su",
-                "Tiền mua bao cao su",
-                "Tiền mua bao cao su"
-        };
 
-        final boolean[] checkedMucChi = new boolean[]{
-                false, false, false, false, false, false, false, false, false,
-                false, false, false, false, false, false, false, false, false,
-                false, false, false, false, false, false, false, false, false,
-                false, false, false, false, false, false, false, false, false,
-                false, false, false, false, false, false, false, false, false
-        };
+        List<ObjectKhoan> khoan;
+        khoan = db.getKhoanChi();
+        String[] mucChi = new String[khoan.size()];
+
+        final boolean[] checkedMucChi = new boolean[khoan.size()];
+        for (int i = 0 ; i < khoan.size(); i++){
+            mucChi[i] = khoan.get(i).getName();
+            checkedMucChi[i] = false;
+        }
 
         final List<String> datas = Arrays.asList(mucChi);
         ab.setMultiChoiceItems(mucChi, checkedMucChi, new DialogInterface.OnMultiChoiceClickListener() {
@@ -312,16 +301,27 @@ public class AddFragment extends Fragment implements View.OnClickListener {
 
     private void selectMucThu() {
         AlertDialog.Builder ab = new AlertDialog.Builder(getActivity());
-        String[] arrThu = {
-                "Tiền Lương",
-                "Tiền Thưởng",
-                "Được cho/tặng",
-                "Tiền lãi",
-                "Lãi tiết kiệm",
-                "Khác",
-        };
-        final boolean[] checkThu = {false, false, false, false, false, false};
+        List<ObjectKhoan> khoanThu;
+        khoanThu = db.getKhoanThu();
+//        String[] arrThu = {
+//                "Tiền Lương",
+//                "Tiền Thưởng",
+//                "Được cho/tặng",
+//                "Tiền lãi",
+//                "Lãi tiết kiệm",
+//                "Khác",
+//        };
+        String[] arrThu = new String[khoanThu.size()];
+        final boolean[] checkThu = new boolean[khoanThu.size()];
+
+        for (int i = 0 ; i < khoanThu.size(); i++){
+            arrThu[i] = khoanThu.get(i).getName();
+            checkThu[i] = false;
+        }
+
         final List<String> data = Arrays.asList(arrThu);
+
+
         ab.setMultiChoiceItems(arrThu, checkThu, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i, boolean b) {
@@ -355,7 +355,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         if (txtTen.getText().toString().equals("") || txtNgayThang.getText().toString().equals("") || edtSoTien.getText().toString().equals("")) {
             Toast.makeText(getContext(), "Không được bỏ trống", Toast.LENGTH_LONG).show();
         } else {
-            ThuChi loai = new ThuChi();
+            ObjectLoai loai = new ObjectLoai();
             @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 Date dateFormat = simpleDateFormat.parse(txtNgayThang.getText().toString());
@@ -382,7 +382,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         if (txtTen.getText().toString().equals("") || txtNgayThang.getText().toString().equals("") || edtSoTien.getText().toString().equals("")) {
             Toast.makeText(getContext(), "Không được bỏ trống", Toast.LENGTH_LONG).show();
         } else {
-            ThuChi loai = new ThuChi();
+            ObjectLoai loai = new ObjectLoai();
             @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 Date dateFormat = simpleDateFormat.parse(txtNgayThang.getText().toString());
@@ -414,10 +414,10 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public static AddFragment newInstance(ArrayList<ThuChi> datas) {
+    public static AddLoai newInstance(ArrayList<ObjectLoai> datas) {
         Bundle args = new Bundle();
         args.putParcelableArrayList("datas", datas);
-        AddFragment fragment = new AddFragment();
+        AddLoai fragment = new AddLoai();
         fragment.setArguments(args);
         return fragment;
     }

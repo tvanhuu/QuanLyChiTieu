@@ -9,17 +9,17 @@ import java.util.Date;
  * Created by thuu on 29/01/18.
  **/
 
-public class ThuChi implements Parcelable {
+public class ObjectLoai implements Parcelable {
     private int id;
     private String ten, ghiChu, loai;
     private double soTien;
     private Date ngayThang;
 
-    public ThuChi(){
+    public ObjectLoai(){
 
     }
 
-    public ThuChi(String ten, String ghiChu, String loai, double soTien, Date ngayThang) {
+    public ObjectLoai(String ten, String ghiChu, String loai, double soTien, Date ngayThang) {
         this.ten = ten;
         this.ghiChu = ghiChu;
         this.loai = loai;
@@ -27,7 +27,7 @@ public class ThuChi implements Parcelable {
         this.ngayThang = ngayThang;
     }
 
-    public ThuChi(int id, String ten, String ghiChu, String loai, double soTien, Date ngayThang) {
+    public ObjectLoai(int id, String ten, String ghiChu, String loai, double soTien, Date ngayThang) {
         this.id = id;
         this.ten = ten;
         this.ghiChu = ghiChu;
@@ -36,7 +36,7 @@ public class ThuChi implements Parcelable {
         this.ngayThang = ngayThang;
     }
 
-    protected ThuChi(Parcel in) {
+    protected ObjectLoai(Parcel in) {
         id = in.readInt();
         ten = in.readString();
         ghiChu = in.readString();
@@ -44,15 +44,15 @@ public class ThuChi implements Parcelable {
         soTien = in.readDouble();
     }
 
-    public static final Creator<ThuChi> CREATOR = new Creator<ThuChi>() {
+    public static final Creator<ObjectLoai> CREATOR = new Creator<ObjectLoai>() {
         @Override
-        public ThuChi createFromParcel(Parcel in) {
-            return new ThuChi(in);
+        public ObjectLoai createFromParcel(Parcel in) {
+            return new ObjectLoai(in);
         }
 
         @Override
-        public ThuChi[] newArray(int size) {
-            return new ThuChi[size];
+        public ObjectLoai[] newArray(int size) {
+            return new ObjectLoai[size];
         }
     };
 

@@ -42,7 +42,7 @@
                     android:id="@+id/txt_loai"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Chi"
+                    android:text="@string/chi"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/textColor"
@@ -51,7 +51,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" : "
+                    android:text="@string/haicham"
                     android:textStyle="bold"
 
                     android:textColor="@color/textColor"
@@ -61,7 +61,7 @@
                     android:id="@+id/txt_ten"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Đi chợ"
+                    android:text="@string/dicho"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:textColor="@color/textColor"
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/textColor"
                 android:textSize="16sp"
-                android:text="Ghi chú: Mua thức ăn rằm"
+                android:text="@string/note"
                 android:layout_marginTop="5dp"
                 android:maxLines="1"
                 android:layout_gravity="bottom" />
@@ -97,7 +97,7 @@
                    android:id="@+id/txt_sotien"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text="1.000"
+                   android:text="@string/_200000"
                    android:textSize="16sp"
                    android:textColor="#f13838"
                    android:maxLines="1" />
@@ -105,7 +105,7 @@
                <TextView
                    android:layout_width="wrap_content"
                    android:layout_height="22dp"
-                   android:text=" VND"
+                   android:text="@string/vnd"
                    android:textSize="16sp"
                    android:textColor="#f13838"/>
            </LinearLayout>
@@ -113,7 +113,7 @@
                 android:id="@+id/txt_ngaythang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="21/2/2018"
+                android:text="@string/ngagtao"
                 android:textSize="16sp"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/textColor"

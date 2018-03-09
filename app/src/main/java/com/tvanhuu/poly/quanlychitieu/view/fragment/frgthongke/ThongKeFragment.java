@@ -17,7 +17,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.tvanhuu.poly.quanlychitieu.R;
 import com.tvanhuu.poly.quanlychitieu.common.Constant;
 import com.tvanhuu.poly.quanlychitieu.dao.SQLManager;
-import com.tvanhuu.poly.quanlychitieu.model.ThuChi;
+import com.tvanhuu.poly.quanlychitieu.model.ObjectLoai;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,8 +34,8 @@ public class ThongKeFragment extends Fragment {
     private PieChart pieChi;
     private ArrayList<PieEntry> pieChiList;
     private ArrayList<PieEntry> pieThuList;
-    private List<ThuChi> datasThu;
-    private List<ThuChi> datasChi;
+    private List<ObjectLoai> datasThu;
+    private List<ObjectLoai> datasChi;
     private PieDataSet pieDataSet ;
     private PieData pieData ;
     private SQLManager db;

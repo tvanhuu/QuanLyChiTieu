@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.tvanhuu.poly.quanlychitieu.R;
-import com.tvanhuu.poly.quanlychitieu.model.ThuChi;
+import com.tvanhuu.poly.quanlychitieu.model.ObjectLoai;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,20 +18,20 @@ import java.util.List;
  * Created by thuu on 18/02/18.
  **/
 
-public class AdapterItemView extends RecyclerView.Adapter<AdapterItemView.RecyclerViewHolder>{
+public class AdapterItemLoai extends RecyclerView.Adapter<AdapterItemLoai.RecyclerViewHolder>{
 
-    private List<ThuChi> datas = new ArrayList<>();
+    private List<ObjectLoai> datas = new ArrayList<>();
 
-    public AdapterItemView(List<ThuChi> datas) {
+    public AdapterItemLoai(List<ObjectLoai> datas) {
         this.datas = datas;
     }
 
-    public void updateList(List<ThuChi> datasList){
+    public void updateList(List<ObjectLoai> datasList){
         datas = datasList;
         notifyDataSetChanged();
     }
 
-    public void addItem(int position, ThuChi khoanThu){
+    public void addItem(int position, ObjectLoai khoanThu){
         datas.add(position, khoanThu);
         notifyItemInserted(position);
     }
@@ -48,7 +48,7 @@ public class AdapterItemView extends RecyclerView.Adapter<AdapterItemView.Recycl
 
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new RecyclerViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.row_recyclerview, parent, false));
+        return new RecyclerViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.row_recycler_loai, parent, false));
     }
 
     @Override

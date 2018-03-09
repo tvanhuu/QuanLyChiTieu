@@ -19,7 +19,7 @@ import android.view.View;
 
 import com.tvanhuu.poly.quanlychitieu.R;
 import com.tvanhuu.poly.quanlychitieu.dao.SQLManager;
-import com.tvanhuu.poly.quanlychitieu.view.fragment.frgadd.AddFragment;
+import com.tvanhuu.poly.quanlychitieu.view.fragment.frgadd.AddPage;
 import com.tvanhuu.poly.quanlychitieu.view.fragment.frgthongke.ThongKeFragment;
 import com.tvanhuu.poly.quanlychitieu.view.fragment.frggioithieu.GioiThieuFragment;
 import com.tvanhuu.poly.quanlychitieu.view.fragment.frgchi.KhoanChiFragment;
@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(drawerToggle);
         setupDrawerContent(nNavigation);
         nextFragment(new ThongKeFragment());
+        //nextFragment(new AddPage());
     }
 
     private void onAttach() {

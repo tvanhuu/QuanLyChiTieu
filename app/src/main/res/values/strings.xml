@@ -28,8 +28,11 @@
     <string name="tranhuu">Trần Văn Hữu</string>
     <string name="lienhe">* Liên hệ</string>
     <string name="caidat">Cài đặt</string>
-    <string name="chude">* Cài đặt chủ đề</string>
-    <string name="chudetoi">Chủ để màu tối</string>
+    <string name="chi">Chi</string>
+    <string name="haicham">:</string>
+    <string name="dicho">Đi chợ</string>
+    <string name="note">Ghi chú: Mua thức ăn rằm</string>
+    <string name="vnd">VND</string>
 
     <string-array name="chonloai">
         <item>Thu</item>
