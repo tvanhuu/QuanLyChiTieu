@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.tvanhuu.poly.quanlychitieu.R;
 import com.tvanhuu.poly.quanlychitieu.common.Constant;
@@ -72,14 +73,19 @@ public class AddKhoan extends Fragment {
         btnAddKhoan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Constant.status == 1) {
-                    db.addKhoan(new ObjectKhoan(edtName.getText().toString(), "Chi"));
-                    datas.add(new ObjectKhoan(edtName.getText().toString(), "Chi"));
-                    adapterItemKhoan.updateList(datas);
-                } else {
-                    db.addKhoan(new ObjectKhoan(edtName.getText().toString(), "Thu"));
-                    datas.add(new ObjectKhoan(edtName.getText().toString(), "Thu"));
-                    adapterItemKhoan.updateList(datas);
+                if(edtName.getText().toString().equals("")){
+                    Toast.makeText(getContext(), "Không được để rỗng ^^", Toast.LENGTH_LONG).show();
+                }else{
+                    if (Constant.status == 1) {
+                        db.addKhoan(new ObjectKhoan(edtName.getText().toString(), "Chi"));
+                        datas.add(new ObjectKhoan(edtName.getText().toString(), "Chi"));
+                        adapterItemKhoan.updateList(datas);
+                    } else {
+                        db.addKhoan(new ObjectKhoan(edtName.getText().toString(), "Thu"));
+                        datas.add(new ObjectKhoan(edtName.getText().toString(), "Thu"));
+                        adapterItemKhoan.updateList(datas);
+                    }
+                    edtName.setText("");
                 }
             }
         });
